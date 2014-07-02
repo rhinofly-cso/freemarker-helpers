@@ -9,4 +9,14 @@ component accessors="true"
 		return "thing";
 	}
 
+	public String function generateSomething()
+	{
+		return "something wacky";
+	}
+
+	public String function prettyJoin(required string x, required string y)
+	{
+		return arguments.x & " ~~~~ " & arguments.y;
+	}
+
 }

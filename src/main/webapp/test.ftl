@@ -107,6 +107,18 @@ component accessors="true"
         [/#list]      
       </td>
     </tr>
+    <tr>
+      <td>{dummy.generateSomething()}</td>
+      <td>something wacky</td>
+      <td>TODO     
+      </td>
+    </tr>    
+    <tr>
+      <td>{dummy.prettyJoin("foo", "bar")}</td>
+      <td>foo ~~~~ bar</td>
+      <td>TODO 
+      </td>
+    </tr>     
   </tbody>
 </table>
 
