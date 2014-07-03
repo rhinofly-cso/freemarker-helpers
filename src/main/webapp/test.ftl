@@ -108,6 +108,11 @@ component accessors="true"
       </td>
     </tr>
     <tr>
+      <td>{dummy?size}</td>
+      <td>DON'T KNOW</td>
+      <td>${dummy?size}</td>
+    </tr>
+    <tr>
       <td>{dummy.generateSomething()}</td>
       <td>something wacky</td>
       <td>${dummy.generateSomething()}</td>
