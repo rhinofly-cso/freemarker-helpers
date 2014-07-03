@@ -1,4 +1,4 @@
-package fly.java.freemarker;
+package nl.rhinofly.freemarker;
 
 import java.sql.Clob;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package fly.java.freemarker;
+package nl.rhinofly.freemarker;
 
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.TemplateModel;

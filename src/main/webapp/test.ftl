@@ -21,6 +21,22 @@ component accessors="true"
   </thead>
   <tbody>
     <tr>
+      <td>{dummy.generateSomething()}</td>
+      <td>something wacky</td>
+      <td>
+        [#attempt]
+          ${dummy.generateSomething()}
+        [#recover]
+          Exception
+        [/#attempt]
+      </td>
+    </tr>
+    <tr>
+      <td>{dummy.inheritedFunction()}</td>
+      <td>inherited function</td>
+      <td>${dummy.inheritedFunction()}</td>
+    </tr>
+    <tr>
       <td>{dummy.color}</td>
       <td>Red</td>
       <td>${dummy.color}</td>
@@ -129,17 +145,6 @@ component accessors="true"
       <td>8</td>
       <td>${dummy?size}</td>
     </tr>
-    <tr>
-      <td>{dummy.generateSomething()}</td>
-      <td>something wacky</td>
-      <td>
-      [#attempt]
-        ${dummy.generateSomething()}
-      [#recover]
-        Exception
-      [/#attempt]      
-      </td>
-    </tr>    
     <tr>
       <td>{dummy.prettyJoin("foo", "bar")}</td>
       <td>foo ~~~~ bar</td>

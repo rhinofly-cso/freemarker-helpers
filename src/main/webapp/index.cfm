@@ -22,7 +22,7 @@
 
 
 	/* create an object wrapper and assign it to the configuration */
-	objectWrapper = createObject("java", "fly.java.freemarker.RailoObjectWrapper").init();
+	objectWrapper = createObject("java", "nl.rhinofly.freemarker.RailoObjectWrapper").init();
 	objectWrapper.setExposeFields(javacast("boolean", true));
 	variables._configuration.setObjectWrapper(objectWrapper);
 

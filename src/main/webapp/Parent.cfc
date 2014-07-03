@@ -8,4 +8,9 @@ component accessors="true"
 		return "parent thing";
 	}
 
+	public String function inheritedFunction()
+	{
+	    return "inherited function";
+	}
+
 }
