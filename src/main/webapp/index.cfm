@@ -23,7 +23,7 @@
 
 	/* create an object wrapper and assign it to the configuration */
 	objectWrapper = createObject("java", "fly.java.freemarker.RailoObjectWrapper").init();
-  objectWrapper.setExposeFields(javacast("boolean", true));
+	objectWrapper.setExposeFields(javacast("boolean", true));
 	variables._configuration.setObjectWrapper(objectWrapper);
 
 	/* set tag syntax to square brackets */
@@ -51,6 +51,7 @@
 	dummy = createObject("Dummy");
 	dummy.setColor("Red");
 	dummy.setNested(foo);
+	dummy.setHeight("tall");
 
 	structInsert(model, "ping", "pong");
 	structInsert(model, "resultset", query);

@@ -1,8 +1,9 @@
-component accessors="true"
+component accessors="true" extends="Parent"
 {
 	property name="color" type="string";
 	property name="nested" type="Foo";
 	property name="some" type="string";
+	property name="ambi" type="string";
 
 	public String function getSome()
 	{
@@ -18,5 +19,10 @@ component accessors="true"
 	{
 		return arguments.x & " ~~~~ " & arguments.y;
 	}
+
+	public String function ambi()
+	{
+		return "ambi function called";
+	}	
 
 }

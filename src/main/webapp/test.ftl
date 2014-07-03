@@ -91,7 +91,7 @@ component accessors="true"
     </tr>
     <tr>
       <td>{dummy?keys}</td>
-      <td>cfcType nested color some</td>
+      <td>generateSomething cfcType height nested color prettyJoin some ambi </td>
       <td>
         [#list dummy?keys as key]
           ${key}
@@ -99,39 +99,102 @@ component accessors="true"
       </td>
     </tr>
     <tr>
-      <td>{dummy.nested?values}</td>
-      <td>Foo jan bar</td>
+      <td>{dummy?values}</td>
+      <td>Exception</td>
       <td>
-        [#list dummy.nested?values as value]
-          ${value}
-        [/#list]      
+        [#attempt]
+          [#list dummy?values as value]
+            ${value}
+          [/#list]
+        [#recover]
+          Exception
+        [/#attempt]
+      </td>
+    </tr>
+    <tr>
+      <td>{dummy.nested?values}</td>
+      <td>Exception</td>
+      <td>
+        [#attempt]
+          [#list dummy.nested?values as value]
+            ${value}
+          [/#list]
+        [#recover]
+          Exception
+        [/#attempt]
       </td>
     </tr>
     <tr>
       <td>{dummy?size}</td>
-      <td>DON'T KNOW</td>
+      <td>8</td>
       <td>${dummy?size}</td>
     </tr>
     <tr>
       <td>{dummy.generateSomething()}</td>
       <td>something wacky</td>
-      <td>${dummy.generateSomething()}</td>
+      <td>
+      [#attempt]
+        ${dummy.generateSomething()}
+      [#recover]
+        Exception
+      [/#attempt]      
+      </td>
     </tr>    
     <tr>
       <td>{dummy.prettyJoin("foo", "bar")}</td>
       <td>foo ~~~~ bar</td>
-      <td>TODO</td>
+      <td>
+      [#attempt]
+        ${dummy.prettyJoin("foo", "bar")}
+      [#recover]
+        Exception
+      [/#attempt]      
+      </td>
     </tr>
     <tr>
       <td>{dummy.nested.foo}</td>
-      <td>DON'T KNOW</td>
+      <td>cfFoo2ecfc1432908334$funcFOO@7c7778cc</td>
       <td>${dummy.nested.foo}</td>
     </tr>
     <tr>
       <td>{dummy.nested.foo()}</td>
-      <td>DON'T KNOW</td>
-      <td>${dummy.nested.foo()}</td>
+      <td>Exception</td>
+      <td>
+      [#attempt]
+        ${dummy.nested.foo()}
+      [#recover]
+        Exception
+      [/#attempt]      
+      </td>
     </tr>
+    <tr>
+      <td>{dummy.ambi}</td>
+      <td>cfDummy2ecfc720211312$funcAMBI@298e08d2 </td>
+      <td>${dummy.ambi}     
+      </td>
+    </tr>
+    <tr>
+      <td>{dummy.ambi()}</td>
+      <td>Exception</td>
+      <td>
+      [#attempt]
+        ${dummy.ambi()}     
+      [#recover]
+        Exception
+      [/#attempt]          
+      </td>
+    </tr>      
+    <tr>
+      <td>{dummy.height}</td>
+      <td>tall</td>
+      <td>
+      [#attempt]
+        ${dummy.height}     
+      [#recover]
+        Exception
+      [/#attempt]          
+      </td>
+    </tr>      
   </tbody>
 </table>
 
