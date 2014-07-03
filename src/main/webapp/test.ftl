@@ -110,15 +110,23 @@ component accessors="true"
     <tr>
       <td>{dummy.generateSomething()}</td>
       <td>something wacky</td>
-      <td>TODO     
-      </td>
+      <td>${dummy.generateSomething()}</td>
     </tr>    
     <tr>
       <td>{dummy.prettyJoin("foo", "bar")}</td>
       <td>foo ~~~~ bar</td>
-      <td>TODO 
-      </td>
-    </tr>     
+      <td>TODO</td>
+    </tr>
+    <tr>
+      <td>{dummy.nested.foo}</td>
+      <td>DON'T KNOW</td>
+      <td>${dummy.nested.foo}</td>
+    </tr>
+    <tr>
+      <td>{dummy.nested.foo()}</td>
+      <td>DON'T KNOW</td>
+      <td>${dummy.nested.foo()}</td>
+    </tr>
   </tbody>
 </table>
 

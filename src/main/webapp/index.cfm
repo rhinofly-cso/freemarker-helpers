@@ -44,8 +44,9 @@
 	query = queryNew("een,twee");
 	queryAddRow(query, [[1,2]]);
 
-  foo = createObject("Foo");
-  foo.setBar("bar");
+    foo = createObject("Foo");
+    foo.setBar("bar");
+    foo.setFoo("property foo");
 
 	dummy = createObject("Dummy");
 	dummy.setColor("Red");
