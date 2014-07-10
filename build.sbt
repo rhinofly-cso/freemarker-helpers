@@ -6,8 +6,6 @@ resolvers ++= Seq(
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
-version := "0.2.0-SNAPSHOT"
-
 name := "freemarker-helpers"
 
 organization := "nl.rhinofly.railo"
@@ -21,10 +19,9 @@ libraryDependencies in Global ++= Seq(
    "org.mortbay.jetty" % "jsp-2.1-glassfish" % "2.1.v20100127",
    "org.fusesource.jansi" % "jansi" % "1.11",
    "org.freemarker" % "freemarker" % "2.3.20",
-   "org.specs2" % "specs2_2.10" % "2.3.12",
-   "org.mockito" % "mockito-all" % "1.9.5"
+   "org.specs2" % "specs2_2.10" % "2.3.12" % "test",
+   "org.mockito" % "mockito-all" % "1.9.5" % "test"
   )
-
 
 classpathTypes += "rc"
 
@@ -37,3 +34,5 @@ publishTo <<= version { (v: String) =>
   else
     Some("releases"  at rhinofly + "libs-release-local")
 }
+
+releaseSettings
