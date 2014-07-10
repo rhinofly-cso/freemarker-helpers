@@ -48,7 +48,7 @@ public class ResultSetModel extends BeanModel implements TemplateCollectionModel
 		try {
 			_getResultSet().beforeFirst();
 		} catch (SQLException e) {
-			new TemplateModelException(e);
+			throw new TemplateModelException(e);
 		}
     return this;
 	}
@@ -107,8 +107,8 @@ public class ResultSetModel extends BeanModel implements TemplateCollectionModel
     private class RowHelper implements TemplateHashModelEx
     {
 
-    	private ResultSet _resultSet;
-    	private ObjectWrapper _wrapper;
+    	private final ResultSet _resultSet;
+    	private final ObjectWrapper _wrapper;
     	
     	/**
     	 * Creates an instance of RowHelper
@@ -139,7 +139,7 @@ public class ResultSetModel extends BeanModel implements TemplateCollectionModel
 		 */
 		public TemplateCollectionModel keys() throws TemplateModelException
 		{
-			List<TemplateModel> values = new ArrayList<TemplateModel>();
+			List<TemplateModel> values = new ArrayList<>();
 
 			for (int i = 0; i < size(); i++) {
 				try {
@@ -157,7 +157,7 @@ public class ResultSetModel extends BeanModel implements TemplateCollectionModel
 		 */
 		public TemplateCollectionModel values() throws TemplateModelException
 		{
-			List<TemplateModel> values = new ArrayList<TemplateModel>();
+			List<TemplateModel> values = new ArrayList<>();
 
 			for (int i = 0; i < size(); i++) {
 				try {

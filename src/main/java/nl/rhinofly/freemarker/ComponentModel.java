@@ -5,18 +5,13 @@ import java.util.*;
 import org.apache.commons.lang.StringUtils;
 
 import freemarker.template.*;
-import freemarker.template.TemplateMethodModelEx;
 import railo.loader.engine.CFMLEngine;
-import railo.loader.engine.CFMLEngineFactory;
-import railo.runtime.component.ComponentLoader;
-import railo.runtime.ComponentImpl;
 import railo.runtime.Component;
 import railo.runtime.ComponentScope;
 import railo.runtime.PageContext;
 import railo.runtime.component.Property;
 import railo.runtime.exp.PageException;
 import railo.runtime.type.KeyImpl;
-
 
 /**
  * A wrapper for Railo Components, also known as CFC's
@@ -29,59 +24,38 @@ public class ComponentModel extends WrappingTemplateModel implements TemplateHas
 
   final private PageContext pc;
 
-  final private Map<String, Lazy<TemplateModel>> attributes = new HashMap<String, Lazy<TemplateModel>> ();
+  final private Map<String, Lazy<TemplateModel>> properties = new HashMap<> ();
 
-  final private Map<String, Lazy<TemplateModel>> methods = new HashMap<String, Lazy<TemplateModel>> ();
-
-  public ComponentModel(final Component component, final ObjectWrapper objectWrapper) throws TemplateModelException
+  public ComponentModel(final Component component, final CFMLEngineFacade facade, final ObjectWrapper objectWrapper) throws TemplateModelException
   {
     super(objectWrapper);
 
     this.component = component;
 
-    final CFMLEngine engine	= CFMLEngineFactory.getInstance();
+    final CFMLEngine engine = facade.getCFMLEngine();
     pc = engine.getThreadPageContext();
     
     try {
       registerCFCType();
       registerProperties ();
-      registerUDFs();
     } catch (PageException e) {
-      System.out.println(e);
       throw new TemplateModelException(e);
     }
   }
 
-  private void registerUDFs() {
-
-  }
-
   private void registerProperties() throws PageException {
-	  System.out.println("register prop");
-
-    Component current = component;
+	  Component current = component;
     do {
-      System.out.println("current: " + current.getName());
-      
       Property[] properties = current.getProperties(false);
-      for (int i = 0; i < properties.length; i++) {
-        System.out.println("property: "  + properties[i].getName());
-        attributes.put(properties[i].getName(), getProperty(properties[i].getName()));
-      }
+      for (int i = 0; i < properties.length; i++)
+        this.properties.put(properties[i].getName(), getProperty(properties[i].getName()));
 
-      System.out.println("loading base: " + current.getExtends());
-      
-      if (!StringUtils.isEmpty(current.getExtends()))
-        current = pc.loadComponent(current.getExtends());
-      else 
-    	  current = null;
-      
-      System.out.println("new current : " + current);
+      current = StringUtils.isEmpty(current.getExtends()) ? null : pc.loadComponent(current.getExtends());
     } while (current != null);
   }
 
   private void registerCFCType() {
-    attributes.put(TYPE_PROPERTY_NAME, new Lazy<TemplateModel>() {
+    properties.put(TYPE_PROPERTY_NAME, new Lazy<TemplateModel>() {
       public TemplateModel execute() throws TemplateModelException {
         return wrap(component.getName());
       }
@@ -95,7 +69,11 @@ public class ComponentModel extends WrappingTemplateModel implements TemplateHas
           return wrap(component.call(pc, "get" + key, new Object[0]));
         } catch (PageException e1) {
           ComponentScope scope = component.getComponentScope();
-          return wrap(scope.get(KeyImpl.init(key), null));
+          try {
+            return wrap(scope.get(KeyImpl.init(key)));
+          } catch (PageException e2) {
+            throw new TemplateModelException(e2);
+          }
         }
       }
     };
@@ -106,15 +84,10 @@ public class ComponentModel extends WrappingTemplateModel implements TemplateHas
    * @inheritDoc
    */
   public TemplateModel get(final String key) throws TemplateModelException {
-    System.out.println(key);
-
-    if (attributes.containsKey(key)) {
-      return attributes.get(key).get();
+    if (properties.containsKey(key)) {
+      return properties.get(key).get();
     } else {
-      boolean cont = component.contains(pc, KeyImpl.init(key));
-      System.out.println(cont);
-
-      if (cont) {
+      if (component.contains(pc, KeyImpl.init(key))) {
         return new TemplateMethodModelEx() {
           public Object exec(List arguments) throws TemplateModelException {
             try {
@@ -130,36 +103,34 @@ public class ComponentModel extends WrappingTemplateModel implements TemplateHas
     }
   }
 
-
-
   /**
    * @inheritDoc
    */
   public boolean isEmpty() throws TemplateModelException {
-    return attributes.isEmpty();
+    return properties.isEmpty();
   }
 
   /**
    * @inheritDoc
    */
   public TemplateCollectionModel keys() throws TemplateModelException {
-    return new SimpleCollection(attributes.keySet(), getObjectWrapper());
+    return new SimpleCollection(properties.keySet(), getObjectWrapper());
   }
 
   /**
    * @inheritDoc
    */
   public int size() throws TemplateModelException {
-    return attributes.size();
+    return properties.size();
   }
 
   /**
    * @inheritDoc
    */
   public TemplateCollectionModel values() throws TemplateModelException {
-    final List<TemplateModel> result = new ArrayList<TemplateModel> ();
+    final List<TemplateModel> result = new ArrayList<> ();
 
-    for (Lazy<TemplateModel> value : attributes.values())
+    for (Lazy<TemplateModel> value : properties.values())
       result.add(value.get());
 
     return new SimpleCollection(result, getObjectWrapper());
