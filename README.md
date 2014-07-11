@@ -1,7 +1,7 @@
 ## Use in your project
 
 ```scala
-libraryDependencies += "nl.rhinofly.railo" % "freemarker-helpers" % "0.2.0-SNAPSHOT"
+libraryDependencies += "nl.rhinofly.railo" % "freemarker-helpers" % "1.0.2"
 ```
 
 ## Test locally
