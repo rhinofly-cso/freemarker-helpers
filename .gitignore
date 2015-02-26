@@ -6,26 +6,8 @@
 .idea
 .idea_modules
 *.iml
-
+.target
 target
 *.log
-
-# Can also ignore all directories and files in a directory.
-tmp/**/* 
-lib
-
-src/main/webapp/WEB-INF/railo/**/*
-src/main/webapp/WEB-INF/flex/**/*
-src/main/webapp/WEB-INF/railo/.htaccess
-src/main/webapp/WEB-INF/railo/exe-log
-src/main/webapp/WEB-INF/railo/id
-src/main/webapp/WEB-INF/railo/lib-hash
-src/main/webapp/WEB-INF/railo/version
-src/main/webapp/WEB-INF/flex
-
-!railo-web.xml.cfm
-
-*.ra
-*.ras
 
 

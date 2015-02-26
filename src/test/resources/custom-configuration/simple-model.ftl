@@ -1,0 +1,1 @@
+freemarker custom configuration

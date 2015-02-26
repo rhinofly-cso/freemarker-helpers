@@ -1,0 +1,49 @@
+${dummy.generateSomething()}
+${dummy.inheritedFunction()}
+${dummy.color}
+[#attempt]
+${nonexistence.color}
+[#recover]
+Exception
+[/#attempt]
+[#attempt]
+${nonexistence.color!"default"}
+[#recover]
+Exception
+[/#attempt]
+[#attempt]
+${dummy.nonexistence}
+[#recover]
+Exception
+[/#attempt]
+${dummy.nonexistence!"default"}
+${dummy.some}
+${dummy.nested.bar}
+${dummy.nested.jan}
+[#attempt]
+${dummy.nested.henk}
+[#recover]
+Exception
+[/#attempt]
+[#list dummy?keys as key]${key} [/#list]
+[#attempt]
+[#list dummy?values as value]${value} |[/#list]
+[#recover]
+Exception
+[/#attempt]
+[#list dummy.nested?values as value]${value} [/#list]
+${dummy?size}
+${dummy.prettyJoin("foo", "bar")}
+${dummy.nested.foo}
+[#attempt]
+${dummy.nested.foo()}
+[#recover]
+Exception
+[/#attempt]
+${dummy.ambi}
+[#attempt]
+${dummy.ambi()}
+[#recover]
+Exception
+[/#attempt]
+${dummy.height}
