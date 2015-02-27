@@ -12,7 +12,7 @@ name := "freemarker-helpers"
 
 name in Railo := "freemarker"
 
-organization := "nl.rhinofly.railo"
+organization := "nl.rhinofly"
 
 scalaVersion := "2.11.5"
 
